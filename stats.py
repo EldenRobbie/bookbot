@@ -1,23 +1,26 @@
-def num_words():
-    with open("books/frankenstein.txt") as f:
-        number = 0
-        file_contents = f.read()
-        words = file_contents.split()
-        for word in words:
-            number += 1
-        
-        return f"{number} words found in the document"
+def get_num_words(text):
+    words = text.split()
+    return len(words)
 
 
-def character_counter():
-    with open("books/frankenstein.txt") as f:
-        my_dict = {}
-        file_contents = f.read()
-        my_dict = {}
-        symbols = list(file_contents.lower())
-        for symbol in symbols:
-            if symbol not in my_dict:
-                my_dict[symbol] = 1
-            else:
-                my_dict[symbol] += 1
-        return my_dict
+def get_chars_dict(text):
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
+        else:
+            chars[lowered] = 1
+    return chars
+
+
+def sort_on(d):
+    return d["num"]
+
+
+def chars_dict_to_sorted_list(num_chars_dict):
+    sorted_list = []
+    for ch in num_chars_dict:
+        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
